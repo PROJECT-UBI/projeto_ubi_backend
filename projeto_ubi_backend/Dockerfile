@@ -2,7 +2,8 @@ FROM php:8.3-apache
 
 # Install git
 RUN apt-get update \
-    && apt-get -y install git \
+    && apt-get -y install git libzip-dev \
+    && docker-php-ext-install zip \
     && apt-get clean
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
