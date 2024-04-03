@@ -15,5 +15,7 @@ COPY .config/php.ini /usr/local/etc/php/
 RUN service apache2 restart
 
 WORKDIR /var/www/html/
+ADD ./ ./
+RUN chmod -R 777 /var/www/html/ 
 
 EXPOSE 80
