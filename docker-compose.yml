@@ -12,6 +12,22 @@ services:
         networks:
             - ubi
 
+    db:
+        image: mariadb:11.3.2
+        restart: unless-stopped
+        environment:
+            MARIADB_DATABASE: ${DB_DATABASE:-ubi}
+            MARIADB_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+            MARIADB_PASSWORD: ${DB_PASSWORD:-ubipass}
+            MARIADB_USER: ${DB_USERNAME:-user}
+        volumes:
+            - /.mariadb:/var/lib/mariadb
+        ports:
+            - 3308:3306
+        command: mariadbd "--max_allowed_packet=1073741824"
+        networks:
+            - ubi
+
 networks:
     ubi:
         driver: bridge
