@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Band extends Model
 {
@@ -16,9 +17,9 @@ class Band extends Model
         'longitude',
     ];
 
-    public function medical_record(): HasOne
+    public function medical_records(): BelongsTo
     {
-        return $this->hasOne(MedicalRecord::class);
+        return $this->belongsTo(MedicalRecord::class);
     }
-    
+
 }

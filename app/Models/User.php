@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -24,6 +25,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function medical_recordss(): BelongsToMany
+    {
+        return $this->belongsToMany(MedicalRecord::class,'user_medical_records','user_id','medical_record_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
