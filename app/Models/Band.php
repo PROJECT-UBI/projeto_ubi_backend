@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Band extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'IMEI',
+        'name',
+        'latitude',
+        'longitude',
+    ];
+    
 }
