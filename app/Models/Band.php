@@ -15,5 +15,10 @@ class Band extends Model
         'latitude',
         'longitude',
     ];
+
+    public function medical_record(): HasOne
+    {
+        return $this->hasOne(MedicalRecord::class);
+    }
     
 }
