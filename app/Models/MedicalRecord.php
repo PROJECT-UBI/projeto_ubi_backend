@@ -23,7 +23,7 @@ class MedicalRecord extends Model
         'surgeries',
         'observations',
     ];
-
+ 
     public function bands(): HasOne
     {
         return $this->hasOne(Band::class,'foreign_key');
@@ -36,7 +36,7 @@ class MedicalRecord extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class,'medical_records_user','medical_record_id','user_id');
     }
 
 }

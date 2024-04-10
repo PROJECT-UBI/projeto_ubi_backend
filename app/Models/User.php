@@ -25,10 +25,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
- 
-    public function medical_recordss(): BelongsToMany
+  
+    public function medical_records(): BelongsToMany
     {
-        return $this->belongsToMany(MedicalRecord::class,'user_medical_records','user_id','medical_record_id');
+        return $this->belongsToMany(MedicalRecord::class);
     }
 
     /**
