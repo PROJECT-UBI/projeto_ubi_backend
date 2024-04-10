@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MedicalRecord extends Model
 {
@@ -17,21 +17,21 @@ class MedicalRecord extends Model
         'height',
         'weight',
         'blood_type',
-        'allergies',
+        'allergies', 
         'medications',
         'diseases',
         'surgeries',
         'observations',
     ];
 
-    public function bands(): BelongsTo
+    public function bands(): HasOne
     {
-        return $this->belongsTo(Band::class);
+        return $this->hasOne(Band::class,'foreign_key');
     }
 
     public function responsibles(): BelongsToMany
     {
-        return $this->belongsToMany(Responsible::class);
+        return $this->belongsToMany(Responsible::class, 'medical_record_responsibles','medical_record_id','responsible_id');
     }
 
     public function users(): BelongsToMany

@@ -16,7 +16,7 @@ class Band extends Model
         'latitude',
         'longitude',
     ];
-
+ 
     public function medical_records(): BelongsTo
     {
         return $this->belongsTo(MedicalRecord::class);

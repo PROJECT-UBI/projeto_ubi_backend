@@ -16,9 +16,9 @@ class Responsible extends Model
         'phone2',
         'email',
     ];
-
+ 
     public function medical_records(): BelongsToMany
     {
-        return $this->belongsToMany(MedicalRecord::class, 'medical_record_responsibles','responsible_id','medical_record_id');
+        return $this->belongsToMany(MedicalRecord::class);
     }
 }
