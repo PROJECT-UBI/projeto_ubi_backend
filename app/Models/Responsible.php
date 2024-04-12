@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -17,7 +17,7 @@ class Responsible extends Model
         'email',
     ];
   
-    public function medical_records(): BelongsToMany
+    public function medicalRecords(): BelongsToMany
     {
         return $this->belongsToMany(MedicalRecord::class);
     }

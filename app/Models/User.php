@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -26,7 +26,7 @@ class User extends Authenticatable
         'remember_token',
     ];
   
-    public function medical_records(): BelongsToMany
+    public function medicalRecords(): BelongsToMany
     {
         return $this->belongsToMany(MedicalRecord::class);
     }
