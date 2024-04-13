@@ -21,7 +21,7 @@ class User extends Model
   
     public function medicalRecords(): BelongsToMany
     {
-        return $this->belongsToMany(MedicalRecord::class);
+        return $this->belongsToMany(MedicalRecord::class, 'medical_record_user', 'user_id', 'medical_record_id');
     }
-    
+
 }

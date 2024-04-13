@@ -20,6 +20,6 @@ class Responsible extends Model
   
     public function medicalRecords(): BelongsToMany
     {
-        return $this->belongsToMany(MedicalRecord::class);
+        return $this->belongsToMany(MedicalRecord::class, 'medical_record_responsible','responsible_id','medical_record_id');
     }
 }

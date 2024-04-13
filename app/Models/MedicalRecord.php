@@ -34,12 +34,12 @@ class MedicalRecord extends Model
 
     public function responsibles(): BelongsToMany
     {
-        return $this->belongsToMany(Responsible::class, 'medical_record_responsibles','medical_record_id','responsible_id');
+        return $this->belongsToMany(Responsible::class, 'medical_record_responsible','medical_record_id','responsible_id');
     }
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class,'medical_records_user','medical_record_id','user_id');
+        return $this->belongsToMany(User::class,'medical_record_user','medical_record_id','user_id');
     }
 
 }
