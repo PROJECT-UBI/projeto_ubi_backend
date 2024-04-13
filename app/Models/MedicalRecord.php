@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-
+use App\Models\Band;
+use App\Models\Responsible;
+use App\Models\User;
+ 
 class MedicalRecord extends Model
 {
     use HasFactory;
