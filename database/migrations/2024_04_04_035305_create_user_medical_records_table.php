@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_medical_records', function (Blueprint $table) {
+        Schema::create('medical_record_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('medical_record_id')->constrained();
+            $table->foreignId('medical_record_id')->constrained('medical_records');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_medical_records');
+        Schema::dropIfExists('medical_record_user');
     }
 };

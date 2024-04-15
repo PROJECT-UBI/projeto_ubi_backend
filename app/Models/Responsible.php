@@ -7,21 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\MedicalRecord;
  
-class User extends Model
+class Responsible extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'last_name',
+        'phone',
+        'phone2',
         'email',
-        'password',
-        'remember_token',
     ];
   
     public function medicalRecords(): BelongsToMany
     {
         return $this->belongsToMany(MedicalRecord::class);
     }
-
 }
