@@ -13,7 +13,7 @@ class ResponsibleController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'phone2' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
         ]);
 
         $responsible = new Responsible;
