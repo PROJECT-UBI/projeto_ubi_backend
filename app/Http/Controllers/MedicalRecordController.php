@@ -10,16 +10,16 @@ class MedicalRecordController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'birth' => 'required',
-            'height' => 'required',
-            'weight' => 'required',
-            'blood_type' => 'required',
-            'allergies' => 'required', 
-            'medications' => 'required',
-            'diseases' => 'required',
-            'surgeries' => 'required',
-            'observations' => 'required',
+            'name' => 'required|string|max:100',
+            'birth' => 'required|date',
+            'height' => 'required|numeric',
+            'weight' => 'required|numeric',
+            'blood_type' => 'nullable|string|max:100',
+            'allergies' => 'nullable|string|max:100', 
+            'medications' => 'nullable|string|max:100',
+            'diseases' => 'nullable|string|max:100',
+            'surgeries' => 'nullable|string|max:100',
+            'observations' => 'nullable|string',
         ]);
 
         $medicalRecord = new MedicalRecord;

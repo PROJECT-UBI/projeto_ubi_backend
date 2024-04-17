@@ -10,10 +10,10 @@ class ResponsibleController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'phone2' => 'required',
-            'email' => 'required|email',
+            'name' => 'required|string|max:100',
+            'phone' => 'required|string|max:15',
+            'phone2' => 'nullable|string|max:15',
+            'email' => 'required|email|max:100',
         ]);
 
         $responsible = new Responsible;
