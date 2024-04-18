@@ -7,7 +7,7 @@ use App\Models\MedicalRecord;
 
 class MedicalRecordController extends Controller
 {
-    public function register(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:100',
@@ -34,6 +34,24 @@ class MedicalRecordController extends Controller
         $medicalRecord->surgeries = $request->surgeries;
         $medicalRecord->observations = $request->observations;
         $medicalRecord->save();
+    }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'string|max:100',
+            'birth' => 'date',
+            'height' => 'numeric',
+            'weight' => 'numeric',
+            'blood_type' => 'nullable|string|max:100',
+            'allergies' => 'nullable|string|max:100', 
+            'medications' => 'nullable|string|max:100',
+            'diseases' => 'nullable|string|max:100',
+            'surgeries' => 'nullable|string|max:100',
+            'observations' => 'nullable|string',
+        ]);
 
+        $medicalRecord = MedicalRecord::find($id);
+        $medicalRecord->fill($request->all());
+        $medicalRecord->save();
     }
 }

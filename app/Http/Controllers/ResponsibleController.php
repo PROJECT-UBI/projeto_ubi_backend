@@ -7,7 +7,7 @@ use App\Models\Responsible;
 
 class ResponsibleController extends Controller
 {
-    public function register(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:100',
@@ -23,5 +23,19 @@ class ResponsibleController extends Controller
         $responsible->email = $request->email;
         $responsible->save();
 
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'string|max:100',
+            'phone' => 'string|max:15',
+            'phone2' => 'nullable|string|max:15',
+            'email' => 'email|max:100',
+        ]);
+
+        $responsible = Responsible::find($id);
+        $responsible->fill($request->all());
+        $responsible->save();
     }
 }
