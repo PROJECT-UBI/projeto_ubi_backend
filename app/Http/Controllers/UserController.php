@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Services\UserService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -32,6 +33,15 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
+        try {
+            $this->userService->store($request->validated());
+            return response()->json(
+                ['message' => 'User created successfully'],
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'User creation failed'], $e->getCode());
+        }
     }
 
     /**
