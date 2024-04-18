@@ -22,6 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [ResponsibleController::class, 'register']);
 Route::put('/responsible/{id}', [ResponsibleController::class, 'update']);
+Route::get('/responsibles/{id}', [ResponsibleController::class, 'get']);
 
 Route::post('/register', [MedicalRecordController::class, 'register']);
 Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
+Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'get']);
+

@@ -38,4 +38,17 @@ class ResponsibleController extends Controller
         $responsible->fill($request->all());
         $responsible->save();
     }
+
+    public function show(Request $request, $id)
+    {
+        $responsible = Responsible::find($id);
+
+        if (!$responsible) {
+            return response()->json(['message' => 
+            'Responsável não encontrado'], 404);
+        }
+
+        return response()->json($responsible);
+    }
+
 }

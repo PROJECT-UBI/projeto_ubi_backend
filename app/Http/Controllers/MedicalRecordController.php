@@ -42,16 +42,35 @@ class MedicalRecordController extends Controller
             'birth' => 'date',
             'height' => 'numeric',
             'weight' => 'numeric',
-            'blood_type' => 'nullable|string|max:100',
-            'allergies' => 'nullable|string|max:100', 
-            'medications' => 'nullable|string|max:100',
-            'diseases' => 'nullable|string|max:100',
-            'surgeries' => 'nullable|string|max:100',
-            'observations' => 'nullable|string',
+            'blood_type' => 
+            'nullable|string|max:100',
+            'allergies' => 
+            'nullable|string|max:100', 
+            'medications' => 
+            'nullable|string|max:100',
+            'diseases' => 
+            'nullable|string|max:100',
+            'surgeries' => 
+            'nullable|string|max:100',
+            'observations' => 
+            'nullable|string',
         ]);
 
         $medicalRecord = MedicalRecord::find($id);
         $medicalRecord->fill($request->all());
         $medicalRecord->save();
     }
+
+    public function show(Request $request, $id)
+    {
+        $medicalRecord = MedicalRecord::find($id);
+
+        if (!$medicalRecord) {
+            return response()->json(['message' => 
+            'Ficha Médica não encontrada'], 404);
+        }
+
+        return response()->json($medicalRecord);
+    }
+
 }
