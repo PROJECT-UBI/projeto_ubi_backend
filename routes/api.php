@@ -20,11 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/responsible', [ResponsibleController::class, 'store']);
-Route::put('/responsible/{id}', [ResponsibleController::class, 'update']);
+
 Route::get('/responsibles/{id}', [ResponsibleController::class, 'show']);
 
-Route::post('/medicalRecord', [MedicalRecordController::class, 'store']);
-Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
 Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'show']);
 
