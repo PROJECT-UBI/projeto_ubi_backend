@@ -60,5 +60,21 @@ class ResponsibleController extends Controller
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
+        public function show(Request $request, $id)
+    {
+        
+        try {
+            $responsible = Responsible::find($id);
+            return response()->json(
+                $responsible
+                ['message' => 'Responsible found'],
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['message' => 'Responsible not found'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
     }
 }

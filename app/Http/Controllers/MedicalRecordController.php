@@ -79,5 +79,21 @@ class MedicalRecordController extends Controller
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
+        public function show(Request $request, $id)
+    {
+        
+        try {
+            $medicalRecord = MedicalRecord::find($id);
+            return response()->json(
+                $medicalRecord,
+                ['message' => 'Medical Record found'],
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['message' => 'Medical Record not found'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
     }
 }
