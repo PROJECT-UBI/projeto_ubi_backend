@@ -3,64 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MedicalRecord;
+use App\Http\Requests\MedicalRecordStoreRequest;
+use App\Http\Services\MedicalRecordService;
+use Symfony\Component\HttpFoundation\Response;
 
 class MedicalRecordController extends Controller
 {
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'birth' => 'required|date',
-            'height' => 'required|numeric',
-            'weight' => 'required|numeric',
-            'blood_type' => 'nullable|string|max:100',
-            'allergies' => 'nullable|string|max:100', 
-            'medications' => 'nullable|string|max:100',
-            'diseases' => 'nullable|string|max:100',
-            'surgeries' => 'nullable|string|max:100',
-            'observations' => 'nullable|string',
-        ]);
-
-        $medicalRecord = new MedicalRecord;
-        $medicalRecord->name = $request->name;
-        $medicalRecord->birth = $request->birth;
-        $medicalRecord->height = $request->height;
-        $medicalRecord->weight = $request->weight;
-        $medicalRecord->blood_type = $request->blood_type;
-        $medicalRecord->allergies = $request->allergies;
-        $medicalRecord->medications = $request->medications;
-        $medicalRecord->diseases = $request->diseases;
-        $medicalRecord->surgeries = $request->surgeries;
-        $medicalRecord->observations = $request->observations;
-        $medicalRecord->save();
-    }
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'string|max:100',
-            'birth' => 'date',
-            'height' => 'numeric',
-            'weight' => 'numeric',
-            'blood_type' => 
-            'nullable|string|max:100',
-            'allergies' => 
-            'nullable|string|max:100', 
-            'medications' => 
-            'nullable|string|max:100',
-            'diseases' => 
-            'nullable|string|max:100',
-            'surgeries' => 
-            'nullable|string|max:100',
-            'observations' => 
-            'nullable|string',
-        ]);
-
-        $medicalRecord = MedicalRecord::find($id);
-        $medicalRecord->fill($request->all());
-        $medicalRecord->save();
-    }
-
     public function show(Request $request, $id)
     {
         $medicalRecord = MedicalRecord::find($id);
@@ -71,6 +19,76 @@ class MedicalRecordController extends Controller
         }
 
         return response()->json($medicalRecord);
+    }
+
+    public function __construct(private MedicalRecordService $medicalRecordService)
+    {
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(MedicalRecordStoreRequest $request)
+    {
+        try {
+            $this->medicalRecordService->store($request->validated());
+            return response()->json(
+                ['message' => 'User created successfully'],
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['message' => 'User creation failed'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 
 }

@@ -3,52 +3,80 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Responsible;
+use App\Http\Requests\ResponsibleStoreRequest;
+use App\Http\Services\ResponsibleService;
+use Symfony\Component\HttpFoundation\Response;
 
 class ResponsibleController extends Controller
 {
-    public function store(Request $request)
+    public function __construct(private ResponsibleService $responsibleService)
     {
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'phone' => 'required|string|max:15',
-            'phone2' => 'nullable|string|max:15',
-            'email' => 'required|email|max:100',
-        ]);
-
-        $responsible = new Responsible;
-        $responsible->name = $request->name;
-        $responsible->phone = $request->phone;
-        $responsible->phone2 = $request->phone2;
-        $responsible->email = $request->email;
-        $responsible->save();
-
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        $request->validate([
-            'name' => 'string|max:100',
-            'phone' => 'string|max:15',
-            'phone2' => 'nullable|string|max:15',
-            'email' => 'email|max:100',
-        ]);
-
-        $responsible = Responsible::find($id);
-        $responsible->fill($request->all());
-        $responsible->save();
+        //
     }
 
-    public function show(Request $request, $id)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(ResponsibleStoreRequest $request)
     {
-        $responsible = Responsible::find($id);
-
-        if (!$responsible) {
-            return response()->json(['message' => 
-            'Responsável não encontrado'], 404);
+        try {
+            $this->responsibleService->store($request->validated());
+            return response()->json(
+                ['message' => 'Responsible created successfully'],
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['message' => 'Responsible creation failed'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
         }
+    }
 
-        return response()->json($responsible);
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 
 }
