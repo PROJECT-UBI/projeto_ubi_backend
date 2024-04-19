@@ -52,7 +52,18 @@ class ResponsibleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $this->responsibleService->show($request->validated());
+            return response()->json(
+                ['message' => 'Responsible found'],
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['message' => 'Responsible not found'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
     }
 
     /**
@@ -68,7 +79,18 @@ class ResponsibleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $this->responsibleService->update($request->validated());
+            return response()->json(
+                ['message' => 'Responsible updated successfully'],
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['message' => 'Responsible update failure'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
     }
 
     /**
