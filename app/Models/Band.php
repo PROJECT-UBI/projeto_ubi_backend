@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -18,10 +18,14 @@ class Band extends Model
         'latitude',
         'longitude',
     ];
-  
+
     public function medicalRecords(): BelongsTo
     {
         return $this->belongsTo(MedicalRecord::class);
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
