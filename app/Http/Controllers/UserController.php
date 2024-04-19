@@ -40,7 +40,10 @@ class UserController extends Controller
                 Response::HTTP_CREATED
             );
         } catch (\Exception $e) {
-            return response()->json(['message' => 'User creation failed'], $e->getCode());
+            return response()->json(
+                ['message' => 'User creation failed'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
         }
     }
 
