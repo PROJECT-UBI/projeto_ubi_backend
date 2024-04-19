@@ -20,8 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/register', [ResponsibleController::class, 'register']);
+Route::post('/responsible', [ResponsibleController::class, 'register']);
 Route::put('/responsible/{id}', [ResponsibleController::class, 'update']);
 
-Route::post('/register', [MedicalRecordController::class, 'register']);
+Route::post('/medicalRecord', [MedicalRecordController::class, 'register']);
 Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
