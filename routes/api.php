@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponsibleController;
@@ -22,6 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/responsibles/{id}', [ResponsibleController::class, 'show']);
-
 Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'show']);
+Route::post('/user', [UserController::class, 'store']);
 

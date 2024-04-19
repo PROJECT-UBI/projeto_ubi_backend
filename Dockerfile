@@ -11,6 +11,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY .config/apache/. /etc/apache2/
 COPY .config/openssl.cnf /etc/ssl
 COPY .config/php.ini /usr/local/etc/php/
+COPY .config/.bashrc /root/.bashrc
+
+RUN a2ensite ubi
+
+RUN a2enmod rewrite
 
 RUN service apache2 restart
 
