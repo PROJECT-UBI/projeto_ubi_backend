@@ -68,7 +68,6 @@ class BandController extends Controller
         try {
             $band = Band::find($id);
             return response()->json(
-                $band,
                 ['message' => 'Band found'],
                 Response::HTTP_CREATED
             );
