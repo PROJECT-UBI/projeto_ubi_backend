@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponsibleController;
 use App\Http\Controllers\MedicalRecordController;
+use App\Http\Controllers\BandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,8 @@ Route::put('/responsible/{id}', [ResponsibleController::class, 'update']);
 Route::post('/medicalRecord', [MedicalRecordController::class, 'store']);
 Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'show']);
 Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
+Route::post('/band', [BandController::class, 'store']);
+Route::get('/band/{id}', [BandController::class, 'show']);
+Route::put('/band/{id}', [BandController::class, 'update']);
 Route::post('/user', [UserController::class, 'store']);
 
