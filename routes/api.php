@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\{MedicalRecordController, ResponsibleController, UserController};
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\{
+    MedicalRecordController,
+    ResponsibleController,
+    UserController
+};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,14 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', [AuthController::class, 'me']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/responsible', [ResponsibleController::class, 'store']);
+    Route::get('/responsibles/{id}', [ResponsibleController::class, 'show']);
+    Route::put('/responsible/{id}', [ResponsibleController::class, 'update']);
+    Route::post('/medicalRecord', [MedicalRecordController::class, 'store']);
+    Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'show']);
+    Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
 });
 
-Route::post('/responsible', [ResponsibleController::class, 'store']);
-Route::get('/responsibles/{id}', [ResponsibleController::class, 'show']);
-Route::put('/responsible/{id}', [ResponsibleController::class, 'update']);
-Route::post('/medicalRecord', [MedicalRecordController::class, 'store']);
-Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'show']);
-Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
+Route::post('/login', [AuthController::class, 'login']);
 Route::post('/user', [UserController::class, 'store']);
