@@ -38,38 +38,34 @@ class UserControllerTest extends TestCase
     public static function userDataProvider(): array
     {
         return [
-            'name is required' =>
+            'name is required' => [
                 [
-                    [
-                        'last_name' => fake()->lastName(),
-                        'email' => fake()->unique()->safeEmail(),
-                        'password' => fake()->password()
-                    ]
+                    'last_name' => fake()->lastName(),
+                    'email' => fake()->unique()->safeEmail(),
+                    'password' => fake()->password(),
                 ],
-            'last_name is required' =>
+            ],
+            'last_name is required' => [
                 [
-                    [
-                        'name' => fake()->name(),
-                        'email' => fake()->unique()->safeEmail(),
-                        'password' => fake()->password()
-                    ]
+                    'name' => fake()->name(),
+                    'email' => fake()->unique()->safeEmail(),
+                    'password' => fake()->password(),
                 ],
-            'email is required' =>
+            ],
+            'email is required' => [
                 [
-                    [
-                        'name' => fake()->name(),
-                        'last_name' => fake()->lastName(),
-                        'password' => fake()->password()
-                    ]
+                    'name' => fake()->name(),
+                    'last_name' => fake()->lastName(),
+                    'password' => fake()->password(),
                 ],
-            'password is required' =>
+            ],
+            'password is required' => [
                 [
-                    [
-                        'name' => fake()->name(),
-                        'last_name' => fake()->lastName(),
-                        'email' => fake()->unique()->safeEmail()
-                    ]
+                    'name' => fake()->name(),
+                    'last_name' => fake()->lastName(),
+                    'email' => fake()->unique()->safeEmail(),
                 ],
+            ],
         ];
     }
 }

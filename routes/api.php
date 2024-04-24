@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\{MedicalRecordController, ResponsibleController, UserController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ResponsibleController;
-use App\Http\Controllers\MedicalRecordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +26,3 @@ Route::post('/medicalRecord', [MedicalRecordController::class, 'store']);
 Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'show']);
 Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
 Route::post('/user', [UserController::class, 'store']);
-

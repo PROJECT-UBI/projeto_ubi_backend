@@ -5,7 +5,6 @@ namespace App\Http\Services;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Hash;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 class UserService
 {
@@ -22,6 +21,7 @@ class UserService
     {
         $request = collect($request);
         $request->put('password', Hash::make($request->get('password')));
+
         return $this->userRepository->create($request->toArray());
     }
 }
