@@ -35,38 +35,38 @@ class ResponsibleController extends Controller
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-      public function update(Request $request, $id)
+    }
+    public function update(Request $request, $id)
     {
-        
         try {
-            $request->validate([
-                'name' => 'string|max:100',
-                'phone' => 'string|max:15',
-                'phone2' => 'nullable|string|max:15',
-                'email' => 'email|max:100',
-            ]);
-    
-            $responsible = Responsible::find($id);
-            $responsible->fill($request->all());
-            $responsible->save();
+        $request->validate([
+            'name' => 'string|max:100',
+            'phone' => 'string|max:15',
+            'phone2' => 'nullable|string|max:15',
+            'email' => 'email|max:100',
+        ]);
 
-            return response()->json(
-                ['message' => 'Responsible updated successfully'],
-                Response::HTTP_CREATED
-            );
+        $responsible = Responsible::find($id);
+        $responsible->fill($request->all());
+        $responsible->save();
+
+        return response()->json(
+            ['message' => 'Responsible updated successfully'],
+            Response::HTTP_CREATED
+        );
         } catch (\Exception $e) {
-            return response()->json(
-                ['message' => 'Responsible updated failed'],
-                Response::HTTP_UNPROCESSABLE_ENTITY
-            );
+        return response()->json(
+            ['message' => 'Responsible updated failed'],
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
         }
-        public function show(Request $request, $id)
+    } 
+    public function show(Request $request, $id)
     {
         
         try {
             $responsible = Responsible::find($id);
             return response()->json(
-                $responsible
                 ['message' => 'Responsible found'],
                 Response::HTTP_CREATED
             );
@@ -77,6 +77,4 @@ class ResponsibleController extends Controller
             );
         }
     }
-}
-}
 }

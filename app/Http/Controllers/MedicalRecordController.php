@@ -48,7 +48,8 @@ class MedicalRecordController extends Controller
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-      public function update(Request $request, $id)
+    }
+    public function update(Request $request, $id)
     {
         
         try {
@@ -79,13 +80,13 @@ class MedicalRecordController extends Controller
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-        public function show(Request $request, $id)
+    }
+    public function show(Request $request, $id)
     {
         
         try {
             $medicalRecord = MedicalRecord::find($id);
             return response()->json(
-                $medicalRecord,
                 ['message' => 'Medical Record found'],
                 Response::HTTP_CREATED
             );
@@ -96,6 +97,4 @@ class MedicalRecordController extends Controller
             );
         }
     }
-}
-}
 }
