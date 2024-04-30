@@ -21,7 +21,7 @@ services:
             MARIADB_PASSWORD: ${DB_PASSWORD:-ubipass}
             MARIADB_USER: ${DB_USERNAME:-user}
         volumes:
-            - /.mariadb:/var/lib/mariadb
+            - /.mariadb:/var/lib/mysql
         ports:
             - 3308:3306
         command: mariadbd "--max_allowed_packet=1073741824"
