@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Hash;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Model;
 
 class UserService
@@ -22,6 +23,9 @@ class UserService
         $request = collect($request);
         $request->put('password', Hash::make($request->get('password')));
 
-        return $this->userRepository->create($request->toArray());
+        $user = $this->userRepository->create($request->toArray());
+        event(new Registered($user));
+
+        return $user;
     }
 }
