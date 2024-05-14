@@ -12,7 +12,6 @@ interface AbstractEloquentRepositoryInterface
 
     public function create(array $data = []);
 
-
     public function where(string $attribute, $value, string $operator = '=');
 
     public function get(array $columns = ['*']);
