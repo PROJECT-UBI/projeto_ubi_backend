@@ -29,7 +29,8 @@ Route::post('/medicalRecord', [MedicalRecordController::class, 'store']);
 Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'show']);
 Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
 Route::post('/band', [BandController::class, 'store']);
-Route::get('/band/{id}', [BandController::class, 'show']);
+Route::get('/band/{id}', [BandController::class, 'showById']);
+Route::get('/band', [BandController::class, 'show']);
 Route::put('/band/{id}', [BandController::class, 'update']);
 Route::post('/user', [UserController::class, 'store']);
 

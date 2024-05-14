@@ -52,7 +52,7 @@ class BandController extends Controller
 
             return response()->json(
                 ['message' => 'Band updated successfully'],
-                Response::HTTP_CREATED
+                Response::HTTP_OK
             );
         } catch (\Exception $e) {
             return response()->json(
@@ -62,18 +62,34 @@ class BandController extends Controller
         }
     }
 
-    public function show(Request $request,$id)
+    public function showById(Request $request,$id)
     {
         
         try {
             $band = Band::find($id);
             return response()->json(
                 ['message' => 'Band found'],
-                Response::HTTP_CREATED
+                Response::HTTP_OK
             );
         } catch (\Exception $e) {
             return response()->json(
                 ['message' => 'Band not found'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+    }
+    
+    public function show(Request $request)
+    {
+        try {
+            $bands = Band::all();
+            return response()->json(
+                ['bands' => $bands],
+                Response::HTTP_OK
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['message' => 'Failed to retrieve bands'],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
