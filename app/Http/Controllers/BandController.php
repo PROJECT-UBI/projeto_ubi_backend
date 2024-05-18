@@ -22,6 +22,7 @@ class BandController extends Controller
             $band->name = $request->name;
             $band->latitude = $request->latitude;
             $band->longitude = $request->longitude;
+            $band->user_id = Auth::id();
             $band->save();
 
             return response()->json(
@@ -46,7 +47,7 @@ class BandController extends Controller
                 'longitude' => 'numeric',
             ]);
     
-            $band = Band::find($id);
+            $band = Band::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
             $band->fill($request->all());
             $band->save();
 
@@ -66,9 +67,9 @@ class BandController extends Controller
     {
         
         try {
-            $band = Band::find($id);
+            $band = Band::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
             return response()->json(
-                ['message' => 'Band found'],
+                ['band' => $band],
                 Response::HTTP_OK
             );
         } catch (\Exception $e) {
@@ -82,7 +83,7 @@ class BandController extends Controller
     public function show(Request $request)
     {
         try {
-            $bands = Band::all();
+            $bands = Band::where('user_id', Auth::id())->get();
             return response()->json(
                 ['bands' => $bands],
                 Response::HTTP_OK
