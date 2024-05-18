@@ -24,6 +24,7 @@ class ResponsibleController extends Controller
             $responsible->phone = $request->phone;
             $responsible->phone2 = $request->phone2;
             $responsible->email = $request->email;
+            $responsible->user_id = Auth::id();
             $responsible->save();
 
             return response()->json(
@@ -47,7 +48,7 @@ class ResponsibleController extends Controller
             'email' => 'email|max:100',
         ]);
 
-        $responsible = Responsible::find($id);
+        $responsible = Responsible::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         $responsible->fill($request->all());
         $responsible->save();
 
@@ -66,9 +67,9 @@ class ResponsibleController extends Controller
     {
         
         try {
-            $responsible = Responsible::find($id);
+            $responsible = Responsible::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
             return response()->json(
-                ['message' => 'Responsible found'],
+                ['responsible' => $responsible],
                 Response::HTTP_OK
             );
         } catch (\Exception $e) {
@@ -82,7 +83,7 @@ class ResponsibleController extends Controller
     public function show(Request $request)
     {
         try {
-            $responsible = Responsible::all();
+            $responsible = Responsible::where('user_id', Auth::id())->get();
             return response()->json(
                 ['responsible' => $responsible],
                 Response::HTTP_OK

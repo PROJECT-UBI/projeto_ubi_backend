@@ -36,6 +36,7 @@ class MedicalRecordController extends Controller
             $medicalRecord->diseases = $request->diseases;
             $medicalRecord->surgeries = $request->surgeries;
             $medicalRecord->observations = $request->observations;
+            $medicalRecord->user_id = Auth::id();
             $medicalRecord->save();
 
             return response()->json(
@@ -66,7 +67,7 @@ class MedicalRecordController extends Controller
                 'observations' => 'nullable|string',
             ]);
     
-            $medicalRecord = MedicalRecord::find($id);
+            $medicalRecord = MedicalRecord::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
             $medicalRecord->fill($request->all());
             $medicalRecord->save();
 
@@ -85,9 +86,9 @@ class MedicalRecordController extends Controller
     {
         
         try {
-            $medicalRecord = MedicalRecord::find($id);
+            $medicalRecord = MedicalRecord::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
             return response()->json(
-                ['message' => 'Medical Record found'],
+                ['medicalRecord' => $medicalRecord],
                 Response::HTTP_OK
             );
         } catch (\Exception $e) {
@@ -101,7 +102,7 @@ class MedicalRecordController extends Controller
     public function show(Request $request)
     {
         try {
-            $medicalRecord = MedicalRecord::all();
+            $medicalRecord = MedicalRecord::where('user_id', Auth::id())->get();
             return response()->json(
                 ['medicalRecord' => $medicalRecord],
                 Response::HTTP_OK
