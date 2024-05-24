@@ -24,10 +24,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/responsible', [ResponsibleController::class, 'store']);
-    Route::get('/responsibles/{id}', [ResponsibleController::class, 'show']);
+    Route::get('/responsibles/{id}', [ResponsibleController::class, 'showById']);
+    Route::get('/responsibles', [ResponsibleController::class, 'show']);
     Route::put('/responsible/{id}', [ResponsibleController::class, 'update']);
     Route::post('/medicalRecord', [MedicalRecordController::class, 'store']);
-    Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'show']);
+    Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'showById']);
+    Route::get('/medicalRecord', [MedicalRecordController::class, 'show']);
     Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
     Route::post('/band', [BandController::class, 'store']);
     Route::get('/band/{id}', [BandController::class, 'showById']);

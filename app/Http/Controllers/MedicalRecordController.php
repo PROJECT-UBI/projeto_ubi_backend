@@ -36,6 +36,7 @@ class MedicalRecordController extends Controller
             $medicalRecord->diseases = $request->diseases;
             $medicalRecord->surgeries = $request->surgeries;
             $medicalRecord->observations = $request->observations;
+            $medicalRecord->user_id = Auth::id();
             $medicalRecord->save();
 
             return response()->json(
@@ -48,7 +49,8 @@ class MedicalRecordController extends Controller
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-      public function update(Request $request, $id)
+    }
+    public function update(Request $request, $id)
     {
         
         try {
@@ -65,13 +67,13 @@ class MedicalRecordController extends Controller
                 'observations' => 'nullable|string',
             ]);
     
-            $medicalRecord = MedicalRecord::find($id);
+            $medicalRecord = MedicalRecord::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
             $medicalRecord->fill($request->all());
             $medicalRecord->save();
 
             return response()->json(
                 ['message' => 'Medical Recorder updated successfully'],
-                Response::HTTP_CREATED
+                Response::HTTP_OK
             );
         } catch (\Exception $e) {
             return response()->json(
@@ -79,19 +81,35 @@ class MedicalRecordController extends Controller
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-        public function show(Request $request, $id)
+    }
+    public function showById(Request $request, $id)
     {
         
         try {
-            $medicalRecord = MedicalRecord::find($id);
+            $medicalRecord = MedicalRecord::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
             return response()->json(
-                $medicalRecord,
-                ['message' => 'Medical Record found'],
-                Response::HTTP_CREATED
+                ['medicalRecord' => $medicalRecord],
+                Response::HTTP_OK
             );
         } catch (\Exception $e) {
             return response()->json(
                 ['message' => 'Medical Record not found'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+    }
+    
+    public function show(Request $request)
+    {
+        try {
+            $medicalRecord = MedicalRecord::where('user_id', Auth::id())->get();
+            return response()->json(
+                ['medicalRecord' => $medicalRecord],
+                Response::HTTP_OK
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['message' => 'Failed to retrieve medicalRecord'],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
