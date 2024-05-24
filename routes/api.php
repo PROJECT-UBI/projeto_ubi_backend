@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\{
     MedicalRecordController,
     ResponsibleController,
+    BandController,
     UserController
 };
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/medicalRecord', [MedicalRecordController::class, 'store']);
     Route::get('/medicalRecord/{id}', [MedicalRecordController::class, 'show']);
     Route::put('/medicalRecord/{id}', [MedicalRecordController::class, 'update']);
+    Route::post('/band', [BandController::class, 'store']);
+    Route::get('/band/{id}', [BandController::class, 'showById']);
+    Route::get('/band', [BandController::class, 'show']);
+    Route::put('/band/{id}', [BandController::class, 'update']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
