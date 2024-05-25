@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Responsible;
+use Illuminate\Http\Response;
 
 class ResponsibleController extends Controller
 {
@@ -23,6 +24,7 @@ class ResponsibleController extends Controller
             $responsible->phone = $request->phone;
             $responsible->phone2 = $request->phone2;
             $responsible->email = $request->email;
+            $responsible->user_id = Auth::id();
             $responsible->save();
 
             return response()->json(
@@ -35,44 +37,60 @@ class ResponsibleController extends Controller
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
-      public function update(Request $request, $id)
+    }
+    public function update(Request $request, $id)
     {
-        
         try {
-            $request->validate([
-                'name' => 'string|max:100',
-                'phone' => 'string|max:15',
-                'phone2' => 'nullable|string|max:15',
-                'email' => 'email|max:100',
-            ]);
-    
-            $responsible = Responsible::find($id);
-            $responsible->fill($request->all());
-            $responsible->save();
+        $request->validate([
+            'name' => 'string|max:100',
+            'phone' => 'string|max:15',
+            'phone2' => 'nullable|string|max:15',
+            'email' => 'email|max:100',
+        ]);
 
-            return response()->json(
-                ['message' => 'Responsible updated successfully'],
-                Response::HTTP_CREATED
-            );
+        $responsible = Responsible::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $responsible->fill($request->all());
+        $responsible->save();
+
+        return response()->json(
+            ['message' => 'Responsible updated successfully'],
+            Response::HTTP_OK
+        );
         } catch (\Exception $e) {
-            return response()->json(
-                ['message' => 'Responsible updated failed'],
-                Response::HTTP_UNPROCESSABLE_ENTITY
-            );
+        return response()->json(
+            ['message' => 'Responsible updated failed'],
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
         }
-        public function show(Request $request, $id)
+    } 
+    public function showById(Request $request, $id)
     {
         
         try {
-            $responsible = Responsible::find($id);
+            $responsible = Responsible::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
             return response()->json(
-                $responsible
-                ['message' => 'Responsible found'],
-                Response::HTTP_CREATED
+                ['responsible' => $responsible],
+                Response::HTTP_OK
             );
         } catch (\Exception $e) {
             return response()->json(
                 ['message' => 'Responsible not found'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+    }
+    
+    public function show(Request $request)
+    {
+        try {
+            $responsible = Responsible::where('user_id', Auth::id())->get();
+            return response()->json(
+                ['responsible' => $responsible],
+                Response::HTTP_OK
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['message' => 'Failed to retrieve responsible'],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
